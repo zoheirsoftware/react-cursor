@@ -9,13 +9,8 @@ class App extends React.Component {
       title:"زهیر هستم",
       age:35
     }
-   // this.handchangetext=this.handchangetext.bind(this)
-  }
-  // handchangetext (){
-  //   this.setState({
-  //     title:"کلاس اول هستم"
-  //   })
-  // }
+   }
+ 
 
   handchangetext=()=>{
     this.setState({

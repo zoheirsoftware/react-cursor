@@ -3,47 +3,80 @@ import { createRoot } from "react-dom/client";
 var interVal;
 
 class Timer extends React.Component {
-    constructor(){
-      super();
-      this.state={
-        timer:new Date().toLocaleTimeString()
-      }
-    }
-    
-
-componentDidMount(){
-  console.log("componentDidMount")
-
-  interVal=setInterval(()=>{
-    this.setState({
-      timer:new Date().toLocaleTimeString()
-    })
-  },1000)
-}
-
-//--------بعد از رندر صدا زده میشه
-componentDidUpdate(){
-  console.log("componentDidUpdate")
-  console.log(this.state.timer)
- if(this.state.timer==="7:26:40 AM"){
-  clearInterval(interVal)
- }
-}
-
-//---بسته شدن خودکار یک چرخه حیات
-componentWillUnmount(){
-
-}
-    render() {
-      console.log("render")
-      return (
-
-        <div>
-          <h1>hell firend b</h1>
-          <h1>it is data {this.state.timer}</h1>
-        </div>
-      );
-    }
+  constructor() {
+    super();
+    this.state = {
+      second: 0,
+      min: 0,
+      hour: 0,
+      isStop: false,
+    };
   }
 
-  export default Timer;
+  startTimer = () => {
+    if (this.state.isStop == false) {
+      this.setState({
+        isStop:true
+      })
+      interVal = setInterval(() => {
+        this.setState({
+          second: this.state.second + 1,
+        });
+        if (this.state.second == 60) {
+          this.setState({
+            second: 0,
+            min: this.state.min + 1,
+          });
+        }
+
+        if (this.state.min == 60) {
+          this.setState({
+            min: 0,
+            hour: this.state.hour + 1,
+          });
+        }
+      }, 1000);
+    }
+  };
+
+  //--------بعد از رندر صدا زده میشه
+  stopTimer = () => {
+   
+    this.setState({
+      isStop:false
+    })
+
+    clearInterval(interVal);
+
+  };
+
+  //---بسته شدن خودکار یک چرخه حیات
+  restTimer =()=> {
+    this.stopTimer()
+    this.setState({
+      second: 0,
+      min: 0,
+      hour: 0,
+      isStop: false,
+    })
+  }
+  render() {
+ let s=this.state.second,
+     m=this.state.min,
+     h=this.state.hour
+    return (
+
+      <>
+        <div>
+        <h1> {`${h>9?h:'0'+h}: ${m>9?m:'0'+m}: ${s>9?s:'0'+s}`}  </h1>
+        <button onClick={this.startTimer}>startTimer</button>
+        <button onClick={this.stopTimer}>stopTimer</button>
+        <button onClick={this.restTimer}>restTimer</button>
+        </div>
+      </>
+    
+    );
+  }
+}
+
+export default Timer;
