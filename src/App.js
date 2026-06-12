@@ -1,49 +1,36 @@
-
 import React from "react";
 import { createRoot } from "react-dom/client";
 import Name from "./Name";
-var interVal;
+import Timer from "./Timer";
 class App extends React.Component {
-    constructor(){
-      super();
-      this.state={
-        timer:new Date().toLocaleTimeString()
-      }
+  constructor (){
+    super();
+    this.state={
+      title:"زهیر هستم",
+      age:35
     }
-
-componentDidMount(){
-  console.log("componentDidMount")
-
-  interVal=setInterval(()=>{
-    this.setState({
-      timer:new Date().toLocaleTimeString()
-    })
-  },1000)
-}
-
-//--------بعد از رندر صدا زده میشه
-componentDidUpdate(){
-  console.log("componentDidUpdate")
-  console.log(this.state.timer)
- if(this.state.timer==="7:26:40 AM"){
-  clearInterval(interVal)
- }
-}
-
-//---بسته شدن خودکار یک چرخه حیات
-componentWillUnmount(){
-
-}
-    render() {
-      console.log("render")
-      return (
-        <div>
-          <h1>hell firend b</h1>
-          <h1>it is data {this.state.timer}</h1>
-          <Name/>
-        </div>
-      );
-    }
+   // this.handchangetext=this.handchangetext.bind(this)
   }
+  // handchangetext (){
+  //   this.setState({
+  //     title:"کلاس اول هستم"
+  //   })
+  // }
 
-  export default App;
+  handchangetext=()=>{
+    this.setState({
+      title:"کلاس اول هستم"
+    })
+  }
+  render() {
+    console.log("render");
+    return (
+      <>
+        <Timer/>
+        <Name  hanf={this.handchangetext}  title={this.state.title} age={this.state.age} />
+      </>
+    );
+  }
+}
+
+export default App;
