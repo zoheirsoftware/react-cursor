@@ -6,9 +6,9 @@ class Name extends React.Component{
     render(){
       return (
         <>
-        <h1>{this.props.title }{this.props.age}</h1>
+        <h1 style={{color:this.props.isLight?"#ddd":"#fff"}}>{this.props.title }{this.props.age}</h1>
 
-<button onClick={this.props.hanf}>change</button>
+<button onClick={this.props.handisLight}>change</button>
 
         </>
       )
