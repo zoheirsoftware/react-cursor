@@ -1,31 +1,24 @@
-import React from "react";
+import React,{useState} from "react";
 import { createRoot } from "react-dom/client";
 import Name from "./Name";
 import Timer from "./Timer";
-class App extends React.Component {
-  constructor (){
-    super();
-    this.state={
-      title:"زهیر هستم",
-      age:35
-    }
-   }
  
 
-  handchangetext=()=>{
-    this.setState({
-      title:"کلاس اول هستم"
-    })
-  }
-  render() {
-    console.log("render");
-    return (
-      <>
-        <Timer/>
-        <Name  hanf={this.handchangetext}  title={this.state.title} age={this.state.age} />
-      </>
-    );
-  }
+const App =()=>{
+  
+const [title,setTitle]=useState("زهیر هستم")
+const [age,setAge]=useState(11)
+
+const handchangetext=()=>{
+  setTitle("کلاس اول هستم")
 }
 
+return (
+  <>
+  <Timer/>
+  <Name  hanf={handchangetext}  title={title} age={age} />
+</>
+)
+
+}
 export default App;
