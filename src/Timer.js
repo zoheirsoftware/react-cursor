@@ -1,5 +1,6 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import TimerList from "./TimerList";
+
 var interVal;
 
 class Timer extends React.Component {
@@ -60,6 +61,15 @@ class Timer extends React.Component {
       isStop: false,
     })
   }
+  handelsetime =()=>{
+    let s=this.state.second,
+     m=this.state.min,
+     h=this.state.hour
+
+     let nweitem=`${h>9?h:'0'+h}: ${m>9?m:'0'+m}: ${s>9?s:'0'+s}`
+     this.props.setItemarray([...this.props.itemArry,nweitem])
+
+  }
   render() {
  let s=this.state.second,
      m=this.state.min,
@@ -68,11 +78,14 @@ class Timer extends React.Component {
 
       <>
         <div>
-        <h1> {`${h>9?h:'0'+h}: ${m>9?m:'0'+m}: ${s>9?s:'0'+s}`}  </h1>
+        <h1 onClick={this.handelsetime}> {`${h>9?h:'0'+h}: ${m>9?m:'0'+m}: ${s>9?s:'0'+s}`}  </h1>
         <button onClick={this.startTimer}>startTimer</button>
         <button onClick={this.stopTimer}>stopTimer</button>
         <button onClick={this.restTimer}>restTimer</button>
         </div>
+        <TimerList>
+          {this.props.itemArry}
+        </TimerList>
       </>
     
     );

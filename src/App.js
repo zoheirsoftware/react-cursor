@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { createRoot } from "react-dom/client";
 import Name from "./Name";
 import Timer from "./Timer";
-import TimerList from "./TimerList";
 
 const App = () => {
   const [title, setTitle] = useState("زهیر هستم");
@@ -22,16 +20,15 @@ const App = () => {
   return (
     <>
       <div style={{ background: isLight ? "rgb(231, 61, 61)" : "#fff" }}>
-        <Timer />
-        <Name
+        <Timer  itemArry={itemArry}
+         setItemarray={setItemarray}/>
+        <Name 
           handisLight={handisLight}
           isLight={isLight}
           title={title}
           age={age}
         />
-        <TimerList>
-          {itemArry}
-        </TimerList>
+       
       </div>
     </>
   );
