@@ -1,13 +1,17 @@
 import React from "react";
+import { TestContext } from "./TestContext";
  
 
 
 class Name extends React.Component{
-    render(){
+  static contextType = TestContext;
+     render(){
       return (
+       
         <>
-        <h1 style={{color:this.props.isLight?"#ddd":"#fff"}}>{this.props.title }{this.props.age}</h1>
- 
+        
+        <h1 style={{color:this.props.isLight?"#ddd":this.context}}>{this.props.title }{this.props.age}</h1>
+   
         </>
       )
     }

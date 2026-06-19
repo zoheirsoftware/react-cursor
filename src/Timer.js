@@ -1,5 +1,6 @@
 import React from "react";
 import TimerList from "./TimerList";
+import { TestContext } from "./TestContext";
 
 var interVal;
 
@@ -13,6 +14,7 @@ class Timer extends React.Component {
       isStop: false,
     };
   }
+  static contextType = TestContext;
 
   startTimer = () => {
     if (this.state.isStop == false) {
@@ -67,9 +69,10 @@ class Timer extends React.Component {
      h=this.state.hour
 
      let nweitem=`${h>9?h:'0'+h}: ${m>9?m:'0'+m}: ${s>9?s:'0'+s}`
-     this.props.setItemarray([...this.props.itemArry,nweitem])
+     this.context.setItemarray([...this.context.itemArry,nweitem])
 
   }
+  
   render() {
  let s=this.state.second,
      m=this.state.min,
@@ -84,7 +87,7 @@ class Timer extends React.Component {
         <button onClick={this.restTimer}>restTimer</button>
         </div>
         <TimerList>
-          {this.props.itemArry}
+          {this.context.itemArry}
         </TimerList>
       </>
     
