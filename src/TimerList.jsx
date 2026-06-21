@@ -1,12 +1,15 @@
+import { useContext } from "react"
 import Item from "./Item"
-const timeList =(props)=>{
+import { TestContext } from "./TestContext"
+const TimerList =(props)=>{
+    const context=useContext(TestContext)
     //برای دریافت pros از childern استفاده میکنیم
     return (
 
         <div className="main_t">
          {/* <Item>{props.children[0]}</Item> */}
          {
-            props.children.map((c)=>(
+           context.itemArry.map((c)=>(
                 <Item key={Math.random()}>{c}</Item>
             ))
          }
@@ -14,4 +17,4 @@ const timeList =(props)=>{
     )
 }
 
-export default timeList
+export default TimerList

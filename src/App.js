@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Name from "./Name";
 import Timer from "./Timer";
 import { TestContext } from "./TestContext";
+import TimerList from "./TimerList";
 
 const App = () => {
   const [title, setTitle] = useState("زهیر هستم");
@@ -26,6 +27,8 @@ const App = () => {
       >
         <div style={{ background: isLight ? "rgb(231, 61, 61)" : "#fff" }}>
           <Timer  />
+          <TimerList />
+
           <Name
             handisLight={handisLight}
             isLight={isLight}
