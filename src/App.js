@@ -7,7 +7,9 @@ const App = () => {
  const [itemtask, setItemTask] = useState([
     { id: 1, titel: "تمرین شماره 1",done:false },
     { id: 1, titel: "تمرین شماره 2",done:true },
-    { id: 1, titel: "تمرین شماره 3" ,done:false}]);
+    { id: 1, titel: "تمرین شماره 3" ,done:false}
+  
+  ]);
 
   return (
     <>

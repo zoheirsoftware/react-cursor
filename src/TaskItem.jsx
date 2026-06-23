@@ -5,7 +5,7 @@ const TaskItem =()=>{
     // const item=useContext(taskContext)
     // console.log(item.itemtask)
     const {itemtask, setItemTask}=useContext(taskContext)
-
+if(itemtask.length){
     return (
         <>
          <ul className="list-group m-0 p-0 mt-2">
@@ -35,6 +35,13 @@ const TaskItem =()=>{
         </ul>
         </>
     )
+}
+else{
+    return (
+        <><h4 className="text-center text-danger ">هیچ کاری ثبت نشده استا</h4></>
+    )
+}
+   
 }
 
 export default TaskItem
