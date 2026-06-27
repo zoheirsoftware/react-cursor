@@ -1,29 +1,23 @@
-import React,{Component} from "react";
+import React,{Component, createRef} from "react";
 import  PureCompo  from "./Purecomponet";
 
 class ParentCompo extends Component{
-constructor(){
+ 
+
+  constructor(){
     super()
-    this.state={
-        name:"zoheir"
-    }
-}
-componentDidMount(){
-
-
-    setInterval(()=>{
-        this.setState({
-            // name:"zoheir"
-            name:"zoheir"+new Date()
-
-        })
-    },1000)
-}
+    this.compnetref=createRef()
+  }
+  handelchangecomponet=()=>{
+    this.compnetref.current.handelChangeName()
+  }
     render(){
-        console.log("---------parent----------")
-        return(
+        console.log(this.compnetref)
+         return(
             <div>
-                <PureCompo name={this.state.name} />
+                <PureCompo  ref={this.compnetref} />
+                <button className="btn btn-info text-center text-white" 
+                onClick={this.handelchangecomponet}>test</button>
             </div>
         )
     }
