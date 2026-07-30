@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { MainContext } from './contexts/MainContext';
 import Gallery from './gallery/Gallery';
 import Posts from './posts/Posts';
 import style from './style.module.css'
 import Todos from './todos/Todos';
 import Users from './users/Users';
-import {  Route, Routes } from 'react-router-dom';
+import {  Route, Routes,Navigate } from 'react-router-dom';
 
 const Content = ()=>{
 
     const{showMenu,setShowMenu}=useContext(MainContext)
+    const[isUser,setIsUser]=useState(true)
     const handleShowMenu=(event)=>{
         event.stopPropagation()
         setShowMenu(!showMenu)
@@ -23,22 +24,14 @@ const Content = ()=>{
             <i className={`${style.menu_button} fas fa-bars text-dark m-2 pointer`} 
             onClick={handleShowMenu} 
             ></i>
-            {/* <BrowserRouter>
-            <Routes>
-                <Route path='/' element={ <Users/>} />
-                <Route path='/posts' element={<Posts/>}/>
-                <Route path='/gallery' element={<Gallery/>}/>
-                <Route path='/todos' element={<Todos/>}/>
-                 
-            </Routes>
-            </BrowserRouter>  */}
             
             <Routes>
-                <Route path='/' element={ <Users/>} />
-                <Route path='/posts' element={<Posts/>}/>
+                 {/* <Route path='/user'  element={ isUser? <Users/>:<Navigate replace to="/posts"/>} /> */}
+                <Route path='/user'  element={ <Users/>} />
+                <Route path='/post' element={<Posts/>}/>
                 <Route path='/gallery' element={<Gallery/>}/>
                 <Route path='/todos' element={<Todos/>}/>
-                 
+                <Route path='/*' element={<Users/>}/>
             </Routes>
           
         </div>
