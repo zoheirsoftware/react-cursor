@@ -6,6 +6,8 @@ import style from './style.module.css'
 import Todos from './todos/Todos';
 import Users from './users/Users';
 import {  Route, Routes,Navigate } from 'react-router-dom';
+import AddUser from './users/AddUser';
+import EditDesc from './users/EditDesc';
 
 const Content = ()=>{
 
@@ -28,6 +30,11 @@ const Content = ()=>{
             <Routes>
                  {/* <Route path='/user'  element={ isUser? <Users/>:<Navigate replace to="/posts"/>} /> */}
                 <Route path='/user'  element={ <Users/>} />
+                {/* <Route path='/user/add/:id' element={<AddUser/>}/> */}
+                <Route path='/user/add/' element={<AddUser/>}>
+                    <Route path=':userid'/>
+                    {/* <Route path=':userid' element={<EditDesc/>}/> */}
+                 </Route>
                 <Route path='/post' element={<Posts/>}/>
                 <Route path='/gallery' element={<Gallery/>}/>
                 <Route path='/todos' element={<Todos/>}/>

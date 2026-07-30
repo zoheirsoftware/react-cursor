@@ -1,5 +1,6 @@
 import React from 'react';
 import style from '../style.module.css'
+import { Link } from 'react-router-dom';
 
 const Users = ()=>{
 
@@ -11,9 +12,12 @@ const Users = ()=>{
                     <input type="text" className="form-control shadow" placeholder="جستجو"/>
                 </div>
                 <div className="col-2 text-start px-0">
+                    <Link to="/user/add">
                     <button className="btn btn-success">
                         <i className="fas fa-plus text-light"></i>
                     </button>
+                    </Link>
+                   
                 </div>
             </div>
             <table className="table bg-light shadow">
@@ -33,7 +37,10 @@ const Users = ()=>{
                         <td>qasemB</td>
                         <td>mahdicmptr@gmail.com</td>
                         <td>
+                            <Link to="/user/add/2">
                             <i className="fas fa-edit text-warning mx-2 pointer"></i>
+                            </Link>
+                         
                             <i className="fas fa-trash text-danger mx-2 pointer"></i>
                         </td>
                     </tr>
