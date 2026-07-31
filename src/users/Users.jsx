@@ -1,9 +1,28 @@
 import React from 'react';
 import style from '../style.module.css'
 import { Link, useNavigate } from 'react-router-dom';
-
+import swal from 'sweetalert';
 const Users = ()=>{
 const navigate=useNavigate()
+const handeldelte=(itemid)=>{
+    
+    swal({
+        title: "حذف رکورد",
+        text:`ایا از حذف رکورد ${itemid} اطمینان دارید`,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("حذف رکورد با موفقیت انجام شد", {
+            icon: "success",
+          });
+        } else {
+          swal("از حذف رکو.رد منصرف شدید");
+        }
+      });
+}
     return (
         <div className={`${style.item_content} mt-5 p-4 container-fluid`}>
             <h4 className="text-center">مدیریت کاربران</h4>
@@ -12,7 +31,7 @@ const navigate=useNavigate()
                     <input type="text" className="form-control shadow" placeholder="جستجو"/>
                 </div>
                 <div className="col-2 text-start px-0">
-                    <Link to="/user/add">
+                    <Link to="/user/add" state={"ali"}>
                     <button className="btn btn-success">
                         <i className="fas fa-plus text-light"></i>
                     </button>
@@ -41,9 +60,10 @@ const navigate=useNavigate()
                             <i className="fas fa-edit text-warning mx-2 pointer" 
                             onClick={()=>{
                                 //action ...
-                                return navigate("/user/add/2")
+                                // return navigate("/user/add/2",{state:"zoheir"})
+                                return navigate("/user/add/2",{state:{x:"zoheir",age:20}})
                             }} ></i>
-                            <i className="fas fa-trash text-danger mx-2 pointer"></i>
+                            <i onClick={()=>handeldelte(1)}  className="fas fa-trash text-danger mx-2 pointer"></i>
                         </td>
                     </tr>
                 </tbody>
