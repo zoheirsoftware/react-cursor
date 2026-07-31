@@ -1,12 +1,12 @@
 import React from 'react';
 import { useParams  } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import style from '../style.module.css'
 
 const AddUser = ()=>{
 
     const{userid}=useParams();
-     
+     const navigate=useNavigate()
     return (
         <div className={`${style.item_content} mt-5 p-4 container-fluid container`}>
             <h4 className="text-center text-primary"> 
@@ -43,10 +43,12 @@ const AddUser = ()=>{
                     </div>
                     
                     <div className="col-12 text-start">
-                        <Link to="/user">
+                        {/* <Link to="/user">
                         <button type="button" class="btn btn-danger ms-2">بازگشت</button>
-                        </Link>
-                      
+                        </Link> */}
+                      <button onClick={()=>{
+                        return navigate(-1)
+                      }} type="button" class="btn btn-danger ms-2">بازگشت</button>
                         <button type="submit" class="btn btn-primary" >
                         {userid?"ویرایش ":"افزودن "}
                       
