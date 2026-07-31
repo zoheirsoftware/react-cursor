@@ -1,9 +1,17 @@
-import React from 'react';
-import style from '../style.module.css'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
+import style from '../style.module.css';
 const Users = ()=>{
 const navigate=useNavigate()
+const [users,setUsers]=useState([])
+
+useEffect(()=>{
+    axios.get('https://jsonplaceholder.typicode.com/users').then(
+        res=>{ setUsers(res.data)}
+    ).catch(err=>{console.log(err)})
+},[])
 const handeldelte=(itemid)=>{
     
     swal({
@@ -39,35 +47,43 @@ const handeldelte=(itemid)=>{
                    
                 </div>
             </div>
-            <table className="table bg-light shadow">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>نام</th>
-                        <th>نام کاربری</th>
-                        <th>ایمیل</th>
-                        <th>عملیات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>qasem</td>
-                        <td>qasemB</td>
-                        <td>mahdicmptr@gmail.com</td>
-                        <td>
-                            
-                            <i className="fas fa-edit text-warning mx-2 pointer" 
-                            onClick={()=>{
-                                //action ...
-                                // return navigate("/user/add/2",{state:"zoheir"})
-                                return navigate("/user/add/2",{state:{x:"zoheir",age:20}})
-                            }} ></i>
-                            <i onClick={()=>handeldelte(1)}  className="fas fa-trash text-danger mx-2 pointer"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            {users.length?(
+                  <table className="table bg-light shadow">
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>نام</th>
+                          <th>نام کاربری</th>
+                          <th>ایمیل</th>
+                          <th>عملیات</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+            {users.map(u=>(
+                  <tr>
+                  <td>{u.id}</td>
+                  <td>{u.name}</td>
+                  <td>{u.username}</td>
+                  <td>{u.email}</td>
+                  <td>
+                      
+                      <i className="fas fa-edit text-warning mx-2 pointer" 
+                      onClick={()=>{
+                          //action ...
+                          // return navigate("/user/add/2",{state:"zoheir"})
+                          return navigate("/user/add/2",{state:{x:"zoheir",age:20}})
+                      }} ></i>
+                      <i onClick={()=>handeldelte(1)}  className="fas fa-trash text-danger mx-2 pointer"></i>
+                  </td>
+              </tr>
+            ))}
+                  </tbody>
+              </table>
+            ):(
+
+                <h4 className='text-info '>لطفا صبر کنید تا داده لود شود</h4>
+            )}
+          
         </div>
     )
 
