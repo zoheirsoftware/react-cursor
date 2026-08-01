@@ -1,4 +1,4 @@
-import axios from "axios";
+import { jpAxios } from "../jpAxios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
@@ -8,8 +8,8 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [mainusers, setMainUsers] = useState([]);
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    jpAxios
+      .get("/users")
       .then((res) => {
         setUsers(res.data);
         setMainUsers(res.data);
@@ -30,9 +30,9 @@ const Users = () => {
       if (willDelete) {
         // axios
         // .delete(`https://jsonplaceholder.typicode.com/users/${itemid}`)
-        axios({
+        jpAxios({
             method:"DELETE",
-            url:`https://jsonplaceholder.typicode.com/users/${itemid}`
+            url:`/users/${itemid}`
         }).then(res=>{
             if(res.status==200){
                 const newusers=users.filter(u=>u.id !=itemid)

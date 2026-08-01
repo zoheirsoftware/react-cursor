@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import style from "../style.module.css";
+
+import { jpAxios } from "../jpAxios"; 
+import {adduser,updateuser} from "../servies/userservises"
 import axios from "axios";
-import swal from "sweetalert";
 const AddUser = () => {
   const { userid } = useParams();
  
@@ -23,26 +25,24 @@ const AddUser = () => {
 const handeladduser=(e)=>{
     e.preventDefault()
     if(!userid){
-        axios .post("https://jsonplaceholder.typicode.com/users",data).then((res) => {     
-            swal("ثبت رکورد با موفقیت انجام شد", {
-            icon: "success",
-          });
-       })  
+      adduser(data)
        
     }else{
-        axios.put(`https://jsonplaceholder.typicode.com/users/${userid}`,data).then((res) => {  
-            swal("ویرایش رکورد با موفقیت انجام شد", {
-                icon: "success",
-              });
-           })
+      updateuser(data,userid)
        
     }
  
 }
 useEffect(()=>{
+// axios.all("https://jsonplaceholder.typicode.com/users",
+// "https://jsonplaceholder.typicode.com/todos") .then((res) => { 
+
+// console.log(res)
+// })
+
    if(userid){
-    axios
-    .get(`https://jsonplaceholder.typicode.com/users/${userid}`) 
+    jpAxios
+    .get(`/users/${userid}`) 
      .then((res) => { 
        setData({
         name: res.data.name,
