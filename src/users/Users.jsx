@@ -15,78 +15,8 @@ const Users = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
-
-    // console.log(1)
-    // setTimeout(()=>{
-    //     console.log(2)
-    // },1000)
-    // console.log(3)
-
-    // new Promise((resolve,reject)=>{
-    //     console.log(1)
-    //     setTimeout(()=>{
-    //         console.log(2)
-    //         resolve(true)
-    //     },1000)
-
-    // }).then(res=>{
-    //     console.log(3)
-    // }).catch(err=>{
-    //     console.log(err)
-    // })
-
-    //    let promis= new Promise((resolve,reject)=>{
-    //         console.log(1)
-    //         setTimeout(()=>{
-    //             console.log(2)
-    //             resolve(true)
-    //         },1000)
-
-    //     })
-    //     promis.then(res=>{
-    //         console.log(3)
-    //     }).catch(err=>{
-    //         console.log(err)
-    //     })
-
-    // const func = () => {
-    //   return new Promise((resolve, reject) => {
-    //     console.log(1);
-    //     setTimeout(() => {
-    //       console.log(2);
-    //       resolve(true);
-    //     }, 1000);
-    //   });
-    // };
-    // const test = async () => {
-    //   const res = await func();
-    //   if (res) {
-    //     console.log(3);
-    //   }
-    // };
-    // test();
-    // const test = (id) => {
-    //   axios
-    //     .get(`https://jsonplaceholder.typicode.com/users/${id}`)
-    //     .then((res) => {
-    //       console.log(res.data);
-    //     });
-    //   console.log(id);
-    // };
-
-    const prom = (id) => {
-      return axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
-    };
-    const test = async (id) => {
-      await prom(id).then((res) => {
-        console.log(res.data);
-      });
-      console.log(id);
-    };
-    for (const item of [1, 2, 3, 4, 5, 6]) {
-      test(item);
-    }
+      }); 
+     
   }, []);
   const handeldelte = (itemid) => {
     swal({
@@ -97,9 +27,28 @@ const Users = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal("حذف رکورد با موفقیت انجام شد", {
-          icon: "success",
-        });
+        // axios
+        // .delete(`https://jsonplaceholder.typicode.com/users/${itemid}`)
+        axios({
+            method:"DELETE",
+            url:`https://jsonplaceholder.typicode.com/users/${itemid}`
+        }).then(res=>{
+            if(res.status==200){
+                const newusers=users.filter(u=>u.id !=itemid)
+                setUsers(newusers)
+                console.log(res)
+                swal("حذف رکورد با موفقیت انجام شد", {
+                    icon: "success",
+                  });
+            }
+            else{
+                swal("عملیات با خطا مواجه شده است", {
+                    icon: "error",
+                  });
+            }
+         
+        })
+       
       } else {
         swal("از حذف رکو.رد منصرف شدید");
       }
@@ -154,7 +103,7 @@ const Users = () => {
                     }}
                   ></i>
                   <i
-                    onClick={() => handeldelte(1)}
+                    onClick={() => handeldelte(u.id)}
                     className="fas fa-trash text-danger mx-2 pointer"
                   ></i>
                 </td>
