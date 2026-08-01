@@ -6,12 +6,13 @@ import style from "../style.module.css";
 const Users = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-
+  const [mainusers, setMainUsers] = useState([]);
   useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((res) => {
         setUsers(res.data);
+        setMainUsers(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -54,6 +55,10 @@ const Users = () => {
       }
     });
   };
+const handelsearch=(e)=>{
+  setUsers(mainusers.filter(u=>u.name.includes(e.target.value)))
+}
+
   return (
     <div className={`${style.item_content} mt-5 p-4 container-fluid`}>
       <h4 className="text-center">مدیریت کاربران</h4>
@@ -63,6 +68,7 @@ const Users = () => {
             type="text"
             className="form-control shadow"
             placeholder="جستجو"
+            onChange={handelsearch}
           />
         </div>
         <div className="col-2 text-start px-0">
@@ -97,9 +103,7 @@ const Users = () => {
                     onClick={() => {
                       //action ...
                       // return navigate("/user/add/2",{state:"zoheir"})
-                      return navigate("/user/add/2", {
-                        state: { x: "zoheir", age: 20 },
-                      });
+                      return navigate(`/user/add/${u.id}`);
                     }}
                   ></i>
                   <i

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import style from "../style.module.css";
 import axios from "axios";
+import swal from "sweetalert";
 const AddUser = () => {
   const { userid } = useParams();
-  const params = useLocation();
-
+ 
   const navigate = useNavigate();
 
   const [data, setData] = useState({
@@ -22,14 +22,44 @@ const AddUser = () => {
   });
 const handeladduser=(e)=>{
     e.preventDefault()
-    axios
-    .post("https://jsonplaceholder.typicode.com/users",data) 
-     .then((res) => {
-      
-        console.log(res)
-      })
-   
+    if(!userid){
+        axios .post("https://jsonplaceholder.typicode.com/users",data).then((res) => {     
+            swal("ثبت رکورد با موفقیت انجام شد", {
+            icon: "success",
+          });
+       })  
+       
+    }else{
+        axios.put(`https://jsonplaceholder.typicode.com/users/${userid}`,data).then((res) => {  
+            swal("ویرایش رکورد با موفقیت انجام شد", {
+                icon: "success",
+              });
+           })
+       
+    }
+ 
 }
+useEffect(()=>{
+   if(userid){
+    axios
+    .get(`https://jsonplaceholder.typicode.com/users/${userid}`) 
+     .then((res) => { 
+       setData({
+        name: res.data.name,
+        username: res.data.username,
+        email: res.data.email,
+        address: {
+          street:res.data.address.street,
+          suite: res.data.address.suite,
+          city:res.data.address.city,
+          zipcode:res.data.address.zipcode,
+        },
+       })
+      })
+   }
+    
+})
+
   return (
     <div className={`${style.item_content} mt-5 p-4 container-fluid container`}>
       <h4 className="text-center text-primary">
