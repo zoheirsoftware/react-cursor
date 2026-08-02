@@ -2,23 +2,15 @@ import React, { useState } from "react";
 import Counter from "./Counter";
 
 const ClickCounts = (props) => {
-//     const [count,setcount]=useState(0)
+ 
 
-//     const handelincreasecount=()=>{
-//         setcount(count+1)
-//     }
-//   return (
-//     <div className="text-center w-100">
-//       <button className="btn btn-success " onClick={handelincreasecount}>cont : {count}</button>
-//     </div>
-//   );
-
-const {count,handelincreasecount}=props;
+const {count,handelincreasecount,name}=props;
+ 
   return (
     <div className="text-center w-100">
-      <button className="btn btn-success " onClick={handelincreasecount}>cont : {count}</button>
+      <button className="btn btn-success " onClick={handelincreasecount}>cont-{name} : {count}</button>
     </div>
   );
 };
 
-export default Counter(ClickCounts);
+export default Counter(ClickCounts,1);

@@ -1,15 +1,15 @@
  
 import React, { useState } from "react";
-const Counter=Maincomponent=>{
+const Counter=(Maincomponent,number)=>{
 
-    const NewComponet=()=>{
+    const NewComponet=(props)=>{
         const [count,setcount]=useState(0)
 
         const handelincreasecount=()=>{
-            setcount(count+1)
+            setcount(count+number)
         }
       return (
-        <Maincomponent count={count} handelincreasecount={handelincreasecount} />
+        <Maincomponent {... props} count={count} handelincreasecount={handelincreasecount} />
       ) ;
     }
 

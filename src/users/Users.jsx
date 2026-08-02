@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import style from "../style.module.css";
-const Users = () => {
+import WithAlert from "../HOC/WithAlert";
+const Users = (props) => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [mainusers, setMainUsers] = useState([]);
@@ -19,15 +20,11 @@ const Users = () => {
       }); 
      
   }, []);
-  const handeldelte = (itemid) => {
-    swal({
-      title: "حذف رکورد",
-      text: `ایا از حذف رکورد ${itemid} اطمینان دارید`,
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
+  const handeldelte =async (itemid) => {
+    
+   const {Confirm,ConfirmAlret}=props;
+
+      if (await Confirm( `ایا از حذف رکورد ${itemid} اطمینان دارید`)) {
         // axios
         // .delete(`https://jsonplaceholder.typicode.com/users/${itemid}`)
         jpAxios({
@@ -38,22 +35,21 @@ const Users = () => {
                 const newusers=users.filter(u=>u.id !=itemid)
                 setUsers(newusers)
                 console.log(res)
-                swal("حذف رکورد با موفقیت انجام شد", {
-                    icon: "success",
-                  });
+                ConfirmAlret("حذف رکورد با موفقیت انجام شد","success")
+                 
             }
             else{
-                swal("عملیات با خطا مواجه شده است", {
-                    icon: "error",
-                  });
+              ConfirmAlret("عملیات با خطا مواجه شده است","error") 
+                
             }
          
         })
        
       } else {
-        swal("از حذف رکو.رد منصرف شدید");
+        ConfirmAlret("از حذف رکو.رد منصرف شدید","info") 
+       
       }
-    });
+    
   };
 const handelsearch=(e)=>{
   setUsers(mainusers.filter(u=>u.name.includes(e.target.value)))
@@ -122,4 +118,4 @@ const handelsearch=(e)=>{
   );
 };
 
-export default Users;
+export default WithAlert( Users);
