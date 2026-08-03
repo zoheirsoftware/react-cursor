@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import style from "../style.module.css";
 import WithAlert from "../HOC/WithAlert";
+import { Confirm, ConfirmAlret } from "../utilts/Alerts";
 const Users = (props) => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
@@ -22,7 +23,7 @@ const Users = (props) => {
   }, []);
   const handeldelte =async (itemid) => {
     
-   const {Confirm,ConfirmAlret}=props;
+  //  const {Confirm,ConfirmAlret}=props;
 
       if (await Confirm( `ایا از حذف رکورد ${itemid} اطمینان دارید`)) {
         // axios
@@ -118,4 +119,4 @@ const handelsearch=(e)=>{
   );
 };
 
-export default WithAlert( Users);
+export default  Users;
