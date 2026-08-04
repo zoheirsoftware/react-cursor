@@ -1,9 +1,7 @@
 import { jpAxios } from "../jpAxios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import swal from "sweetalert";
-import style from "../style.module.css";
-import WithAlert from "../HOC/WithAlert";
+import style from "../style.module.css"; 
 import { Confirm, ConfirmAlret } from "../utilts/Alerts";
 const Users = (props) => {
   const navigate = useNavigate();
