@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import style from "../style.module.css";
 import { Confirm, ConfirmAlret } from "../utilts/Alerts";
 import { postsgetService,postaddservice,postupdateswervice } from "../servies/postservice";
+import useTitle from "../hooks/useTitle";
 
 const Posts = () => {
   const navigate = useNavigate();
@@ -40,6 +41,8 @@ const Posts = () => {
    handelsearch()
 
   },[uid])
+
+  useTitle('پست ها')
   const handeldelte = async (itemid) => {
     //  const {Confirm,ConfirmAlret}=props;
 

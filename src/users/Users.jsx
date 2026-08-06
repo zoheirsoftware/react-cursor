@@ -3,11 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "../style.module.css"; 
 import { Confirm, ConfirmAlret } from "../utilts/Alerts";
+import useTitle from "../hooks/useTitle";
+
 const Users = (props) => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [mainusers, setMainUsers] = useState([]);
   useEffect(() => {
+    // document.title="لیست کاربران"
     jpAxios
       .get("/users")
       .then((res) => {
@@ -19,6 +22,7 @@ const Users = (props) => {
       }); 
      
   }, []);
+  useTitle('کاربران')
   const handeldelte =async (itemid) => {
     
   //  const {Confirm,ConfirmAlret}=props;
