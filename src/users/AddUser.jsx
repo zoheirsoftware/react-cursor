@@ -34,11 +34,7 @@ const handeladduser=(e)=>{
  
 }
 useEffect(()=>{
-// axios.all("https://jsonplaceholder.typicode.com/users",
-// "https://jsonplaceholder.typicode.com/todos") .then((res) => { 
-
-// console.log(res)
-// })
+ 
 
    if(userid){
     jpAxios

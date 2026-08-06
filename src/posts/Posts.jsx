@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import style from "../style.module.css";
 import { Confirm, ConfirmAlret } from "../utilts/Alerts";
-import { postsgetService } from "../servies/postservice";
+import { postsgetService,postaddservice,postupdateswervice } from "../servies/postservice";
 
 const Posts = () => {
   const navigate = useNavigate();
@@ -104,8 +104,7 @@ const Posts = () => {
                   <i
                     className="fas fa-edit text-warning mx-2 pointer"
                     onClick={() => {
-                      //action ...
-                      // return navigate("/user/add/2",{state:"zoheir"})
+                      
                       return navigate(`/post/add/${u.id}`);
                     }}
                   ></i>
