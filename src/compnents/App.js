@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MyStor from "./MyStor";
+import UserComponents from "./UserComponents";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 
@@ -7,7 +7,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <div>
-        <MyStor />
+        <UserComponents />
       </div>
     </Provider>
   );
