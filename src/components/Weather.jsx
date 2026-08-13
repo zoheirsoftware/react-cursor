@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PersianDate from "./PersianDate";
 import { useDispatch, useSelector } from "react-redux";
-import getWeatherInfo from "../redux/weather/weatherAction";
-
+import {getWeatherInfo,sendWeatherRequest} from "../redux/weather/weatherAction";
+ 
 const Weather = () => {
   const { loading, data, error } = useSelector((state) => state);
   const [backMode, setBackMode] = useState("cold");
@@ -11,7 +11,7 @@ const Weather = () => {
   const dispatch = useDispatch();
   const handleGetWeather = (e) => {
     e.preventDefault();
-    dispatch(getWeatherInfo(query));
+    dispatch(sendWeatherRequest(query));
     setQuery("");
   };
 
