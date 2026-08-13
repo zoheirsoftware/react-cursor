@@ -1,6 +1,6 @@
 import { SEND_WEATHER_REQUEST } from "./weatherTypes";
-import { call, put, takeEvery } from "redux-saga/effects";
-import axios from "axios"
+import { call, fork, put, takeEvery, takeLatest } from "redux-saga/effects";
+import axios, { all } from "axios"
 import { receiveWeatherError, receiveWeatherResponse } from "./weatherAction";
 
 export const getWeatherRequest= (query ) => {
@@ -22,5 +22,31 @@ function* handelGetWEATHER(action) {
   }
 }
 export function* watchesaga() {
-  yield takeEvery(SEND_WEATHER_REQUEST,handelGetWEATHER);
+    //هر بار زدن باتن درخواست ارسال میشه
+ // yield takeEvery(SEND_WEATHER_REQUEST,handelGetWEATHER);
+  // فقط اخرین درخواست را اجرا میکند
+  yield takeLatest(SEND_WEATHER_REQUEST,handelGetWEATHER);
 }
+
+function* handelGetWEATHER1(action) {
+    try {
+      const res=yield call(getWeatherRequest,action.payload)
+      yield put(receiveWeatherResponse(res.data))
+    } catch(error) 
+    {
+      yield put(receiveWeatherError(error.message))
+    }
+  }
+  export function* watchesaga1() {
+      //هر بار زدن باتن درخواست ارسال میشه
+   // yield takeEvery(SEND_WEATHER_REQUEST,handelGetWEATHER);
+    // فقط اخرین درخواست را اجرا میکند
+    yield takeLatest(SEND_WEATHER_REQUEST,handelGetWEATHER);
+  }
+  
+  export function* rootsaga(){
+    yield all([
+        fork(watchesaga),
+        fork(watchesaga1)
+    ])
+  }
