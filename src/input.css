@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "DanaMed";
+    src: url("./assets/fonts/fa/Dana-Medium.ttf") format("truetype");
+}
+
+* {
+    font-family: DanaMed;
+    /* font-weight: bold; */
+}
