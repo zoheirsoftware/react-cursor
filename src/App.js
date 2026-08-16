@@ -1,11 +1,14 @@
 import { useState } from "react";
 import Layout from "./layout/Layout";
+import { useSelector } from "react-redux";
 
-function App() {
-    const[darkmod=String,setDarkmod]=useState("light")
+function App() { 
+ 
+const  darkmode  = useSelector(state=>  state.darkmode)
+ 
   return (
-    <div className={darkmod}>
-      <Layout setDarkmod={setDarkmod} darkmod={darkmod}/>
+    <div className={darkmode}>
+      <Layout />
     </div>
   );
 }
