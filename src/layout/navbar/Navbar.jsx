@@ -5,7 +5,7 @@ import { setTheme } from "../../redux/them/darkmodSlice";
  
 
 const Navbar = () => {
-  const  darkmode  = useSelector(state=>state.darkmode)
+  const  {darkmode}  = useSelector(state=>state.darkmode)
   
   const dispatch=useDispatch()
   return (
