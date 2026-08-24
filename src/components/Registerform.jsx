@@ -21,8 +21,8 @@ const initialValues = {
     city: "",
     postalcode: "",
   },
-  phone: ['', ''],
-  favorits: [''],
+  phone: ["", ""],
+  favorits: [""],
 };
 const onSubmit = (values) => {
   console.log(values);
@@ -58,8 +58,17 @@ const validationSchema = Yub.object({
   }),
   phone: Yub.array().of(Yub.string().required("لطفا نام را وارد کنید")),
   favorits: Yub.array().of(Yub.string().required("لطفا نام را وارد کنید")),
-  
 });
+
+const validatebio = (value) => {
+  let error;
+  if (!value) {
+    error = "وروی این فیلد اجباری است";
+  } else if (!/^[\u0600-\u06FF\s0-9a-zA-Z]+$/.test(value)) {
+    error = "لطفا قالب نوشتاری را رعایت کنید...!";
+  }
+  return error;
+};
 const Registerform = () => {
   return (
     <Formik
@@ -67,128 +76,173 @@ const Registerform = () => {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      <div className="auth_container container-fluid d-flex justify-content-center align-items-center w-100 h-100-vh p-0">
-        <div className="row w-100 justify-content-center align-items-center">
-          <div className="auth_box col-11 col-md-8 col-lg-6 col-xl-4 py-4 px-3">
-            <Form>
-              <h1 className="text-center">
-                <i className="fas fa-user-plus text-primary"></i>
-              </h1>
-              <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                  نام
-                </label>
-                <Field
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  name="name"
-                />
-                <ErrorMessage name="name" component={Personalerror} />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  ایمیل
-                </label>
-                <FastField
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  placeholder="email"
-                />
-                <ErrorMessage name="email">
-                  {(error) => (
-                    <small className="d-block text-center text-danger">
-                      {error}
-                    </small>
-                  )}
-                </ErrorMessage>
-              </div>
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  رمز عبور
-                </label>
-                <FastField name="password">
-                  {(props) => <Personalfield {...props} />}
-                </FastField>
-              </div>
-              <div className="mb-3">
-                <label htmlFor="bio" className="form-label">
-                  بیو{" "}
-                </label>
-                <FastField
-                  type="text"
-                  className="form-control"
-                  id="bi"
-                  name="bio"
-                  component="textarea"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="city" className="form-label">
-                  شهر
-                </label>
-                <FastField
-                  type="text"
-                  className="form-control"
-                  id="city"
-                  name="adress.city"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="postalcode" className="form-label">
-                  کد پستی
-                </label>
-                <FastField
-                  type="text"
-                  className="form-control"
-                  id="postalcode"
-                  name="adress.postalcode"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="telphone" className="form-label">
-                  تلفن
-                </label>
-                <FastField
-                  type="text"
-                  className="form-control"
-                  id="telphone"
-                  name="phone[0]"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="mobile" className="form-label">
-                  شماره همراه
-                </label>
-                <FastField
-                  type="text"
-                  className="form-control"
-                  id="mobile"
-                  name="phon[1]"
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="mobile" className="form-label">
-                  علاقه مندی
-                </label>
-                <div className="mb-3">
-                                <FieldArray type="text" className="form-control" id="favorits" name='favorits'>
-                                    {props=> <FavoritsField {...props}/>}
-                                </FieldArray>
+      {(formik) => {
+        console.log(formik);
+        return (
+          <div className="auth_container container-fluid d-flex justify-content-center align-items-center w-100 h-100-vh p-0">
+            <div className="row w-100 justify-content-center align-items-center">
+              <div className="auth_box col-11 col-md-8 col-lg-6 col-xl-4 py-4 px-3">
+                <Form>
+                  <h1 className="text-center">
+                    <i className="fas fa-user-plus text-primary"></i>
+                  </h1>
+                  <div className="mb-3">
+                    <label htmlFor="name" className="form-label">
+                      نام
+                    </label>
+                    <Field
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      name="name"
+                    />
+                    <ErrorMessage name="name" component={Personalerror} />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="email" className="form-label">
+                      ایمیل
+                    </label>
+                    <FastField
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="email"
+                    />
+                    <ErrorMessage name="email">
+                      {(error) => (
+                        <small className="d-block text-center text-danger">
+                          {error}
+                        </small>
+                      )}
+                    </ErrorMessage>
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="password" className="form-label">
+                      رمز عبور
+                    </label>
+                    <FastField name="password">
+                      {(props) => <Personalfield {...props} />}
+                    </FastField>
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="bio" className="form-label">
+                      بیو{" "}
+                    </label>
+                    <FastField
+                      type="text"
+                      className="form-control"
+                      id="bi"
+                      name="bio"
+                      validate={validatebio}
+                      component="textarea"
+                    />
+                    <ErrorMessage name="bio" component={Personalerror} />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="city" className="form-label">
+                      شهر
+                    </label>
+                    <FastField
+                      type="text"
+                      className="form-control"
+                      id="city"
+                      name="adress.city"
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="postalcode" className="form-label">
+                      کد پستی
+                    </label>
+                    <FastField
+                      type="text"
+                      className="form-control"
+                      id="postalcode"
+                      name="adress.postalcode"
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="telphone" className="form-label">
+                      تلفن
+                    </label>
+                    <FastField
+                      type="text"
+                      className="form-control"
+                      id="telphone"
+                      name="phone[0]"
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="mobile" className="form-label">
+                      شماره همراه
+                    </label>
+                    <FastField
+                      type="text"
+                      className="form-control"
+                      id="mobile"
+                      name="phon[1]"
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="mobile" className="form-label">
+                      علاقه مندی
+                    </label>
+                    <div className="mb-3">
+                      <FieldArray
+                        type="text"
+                        className="form-control"
+                        id="favorits"
+                        name="favorits"
+                      >
+                        {(props) => <FavoritsField {...props} />}
+                      </FieldArray>
+                    </div>
+                  </div>
+                  <button
+                    className="btn btn-info"
+                    type="button"
+                    onClick={() => formik.validateField("bio")}
+                  >
+                    اعتبارسنجی بیوگرافی
+                  </button>
+                  <button
+                    className="btn btn-info"
+                    type="button"
+                    onClick={() => formik.validateForm()}
+                  >
+                    اعتبارسنجی فرم
+                  </button>
 
-                            </div>
+                  <button
+                    className="btn btn-success"
+                    type="button"
+                    onClick={() => formik.setFieldTouched("bio")}
+                  >
+                    مشاهده بیوگرافی
+                  </button>
+                  <button
+                    className="btn btn-success"
+                    type="button"
+                    onClick={() =>
+                      formik.setTouched({
+                        name: true,
+                        email: true,
+                      })
+                    }
+                  >
+                    مشاهده فرم
+                  </button>
+                  <div className="text-center w-100">
+                    <button type="submit" className="btn btn-primary">
+                      ثبت نام
+                    </button>
+                  </div>
+                </Form>
               </div>
-              <div className="text-center w-100">
-                <button type="submit" className="btn btn-primary">
-                  ثبت نام
-                </button>
-              </div>
-            </Form>
+            </div>
           </div>
-        </div>
-      </div>
+        );
+      }}
     </Formik>
   );
 };
