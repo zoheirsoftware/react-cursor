@@ -5,15 +5,24 @@ import {
   Field,
   Form,
   Formik,
+  FieldArray,
   useFormik,
 } from "formik";
 import * as Yub from "yup";
 import Personalfield from "./Personalfield";
 import Personalerror from "./Personalerror";
+import FavoritsField from "./FavoritsField";
 const initialValues = {
   name: "zoheir",
   email: "",
   password: "",
+  bio: "",
+  adress: {
+    city: "",
+    postalcode: "",
+  },
+  phone: ['', ''],
+  favorits: [''],
 };
 const onSubmit = (values) => {
   console.log(values);
@@ -43,6 +52,13 @@ const validationSchema = Yub.object({
   password: Yub.string()
     .required("لطفا پسورد را وارد کنید")
     .min("حداقل 8 کاراکتر استفاده کن"),
+  adress: Yub.object({
+    city: Yub.string().required("لطفا نام را وارد کنید"),
+    postalcode: Yub.string().required("لطفا نام را وارد کنید"),
+  }),
+  phone: Yub.array().of(Yub.string().required("لطفا نام را وارد کنید")),
+  favorits: Yub.array().of(Yub.string().required("لطفا نام را وارد کنید")),
+  
 });
 const Registerform = () => {
   return (
@@ -108,6 +124,61 @@ const Registerform = () => {
                   name="bio"
                   component="textarea"
                 />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="city" className="form-label">
+                  شهر
+                </label>
+                <FastField
+                  type="text"
+                  className="form-control"
+                  id="city"
+                  name="adress.city"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="postalcode" className="form-label">
+                  کد پستی
+                </label>
+                <FastField
+                  type="text"
+                  className="form-control"
+                  id="postalcode"
+                  name="adress.postalcode"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="telphone" className="form-label">
+                  تلفن
+                </label>
+                <FastField
+                  type="text"
+                  className="form-control"
+                  id="telphone"
+                  name="phone[0]"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="mobile" className="form-label">
+                  شماره همراه
+                </label>
+                <FastField
+                  type="text"
+                  className="form-control"
+                  id="mobile"
+                  name="phon[1]"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="mobile" className="form-label">
+                  علاقه مندی
+                </label>
+                <div className="mb-3">
+                                <FieldArray type="text" className="form-control" id="favorits" name='favorits'>
+                                    {props=> <FavoritsField {...props}/>}
+                                </FieldArray>
+
+                            </div>
               </div>
               <div className="text-center w-100">
                 <button type="submit" className="btn btn-primary">

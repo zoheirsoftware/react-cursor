@@ -70,4 +70,9 @@ body{
 
 
 
+.delete_icon{
+    position: absolute;
+    top: 11px;
+    left: 3px;
+}
 
